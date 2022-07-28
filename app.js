@@ -19,5 +19,9 @@ app.use(express.json());
 
 //carga de rutas---siempre al final
 app.use("/",router);
+//redireccion de la ruta raíz
+app.get("/",function(req,res){
+    res.redirect("/home");
+})
 
 module.exports=app;

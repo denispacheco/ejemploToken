@@ -3,10 +3,14 @@
 <%-include("./partials/closeHead")%>
 
 <!-- HTML -->
-<h1>ADMIN</h1>
-<h2>Bienvenido <%=nombre%> </h2>
+<div class="w-75 m-auto contenedor mt-3">
+    <h1>ADMIN</h1>
+    <h2>Bienvenido <%=nombre%>
+    </h2>
+    <%-include("./partials/botonLogout") %>
+</div>
 
 
-<%-include("./partials/botonLogout")  %> 
+
 <!-- cargas de js -->
 <%-include("./partials/foot")%>

@@ -1,6 +1,7 @@
 //carga de modelo
 const {Usuario} = require("../models");
 const jwt=require("../utils/jwt");
+const bcrypt=require("bcrypt");
 require("dotenv").config()
 
 const getLogin=function(req,res){
@@ -30,7 +31,7 @@ const postLogin=async function(req,res){
         return res.status(400).json({error:"Usuario no encontrado"});
     }
     //los password no coinciden
-    if(usuario.password!==req.body.password){
+    if(!(await bcrypt.compare(req.body.password,usuario.password))){
         return res.status(401).json({error:"Error de credenciales"});
     }
     //todo salió OK
