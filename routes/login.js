@@ -4,9 +4,10 @@ const express=require("express");
 const router=express.Router();
 //carga de las funciones del controlador del login
 const {getLogin,postLogin}=require("../controllers/login");
+const {prevenirLoginRegistro}=require("../middleware/autenticacion");
 //agregar las rutas
-router.get("/",getLogin);
-router.post("/",postLogin);
+router.get("/",prevenirLoginRegistro,getLogin);
+router.post("/",prevenirLoginRegistro,postLogin);
 
 module.exports=router;
 

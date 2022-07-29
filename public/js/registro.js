@@ -34,17 +34,23 @@ window.onload=function(e){
             headers:{"Content-type":"application/json"},
             body:JSON.stringify(credenciales)
         })      
-       
+        let mensajeError = document.getElementById("msjError");
         //obtener los datos
         let datos=await respuesta.json();  
         //revisar los datos
         if(!datos){
-            alert("Error de comunicación");
+            //alert("Error de comunicación");
+            mensajeError.classList.remove("esconderError");
+            mensajeError.classList.add("mostrarError");
+            mensajeError.innerText="Error en la comunicación"
             return;
         }
         //verificar si viene algún error
         if(datos.error){
-            alert(datos.error)
+            //alert(datos.error)
+            mensajeError.classList.remove("esconderError");
+            mensajeError.classList.add("mostrarError");
+            mensajeError.innerText=datos.error
             return;
         }
 

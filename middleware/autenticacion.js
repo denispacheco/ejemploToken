@@ -29,4 +29,26 @@ const verificarSesionCookie=async function(req,res,next){
     next();
 }
 
-module.exports={verificarSesionHeader,verificarSesionCookie}
+const prevenirLoginRegistro=async function(req,res,next){
+    //si no hay cookie, redirijo
+    if(!req.cookies){        
+        return next();
+    }
+    //leo la cookie
+    const token=req.cookies[process.env.JWT_COOKIE];
+    //si no hay token, lo mando al login
+    if(!token){        
+        return next();
+    }
+    //revisar si el token es válido
+    let datos=await jwt.verificarToken(token);
+    //si el token no es válido, redirijo
+    if(!datos){        
+        return next();
+    }
+    //hay datos. todo OK, agrego los datos al request y sigo el flujo
+    //en este caso, hacia el controller (a menos que agregue otro middleware antes)    
+    return res.redirect("/");
+}
+
+module.exports={verificarSesionHeader,verificarSesionCookie,prevenirLoginRegistro}

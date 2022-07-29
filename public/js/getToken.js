@@ -21,13 +21,21 @@ window.onload=function(e){
         })        
         let datos=await respuesta.json();
         //verificar que existan datos
+
+        let mensajeError = document.getElementById("msjError");
         if(!datos){
-            alert("Error: error en la comunicación");
+            //alert("Error: error en la comunicación");
+            mensajeError.classList.remove("esconderError");
+            mensajeError.classList.add("mostrarError");
+            mensajeError.innerText="Error: error en la comunicación"
             return;
         }
         //rvisar si hay errores
         if(datos.error){
-            alert(datos.error);
+            //alert(datos.error);            
+            mensajeError.classList.remove("esconderError");
+            mensajeError.classList.add("mostrarError");
+            mensajeError.innerText=datos.error
             return;
         }
         //si todo está OK
